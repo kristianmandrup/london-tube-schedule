@@ -1,5 +1,7 @@
 ## Install
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kristianmandrup/london-tube-schedule.svg)](https://greenkeeper.io/)
+
 Run `npm install` NodeJs version 10+ needed in the project directory.
 
 ## Development server
