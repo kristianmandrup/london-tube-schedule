@@ -1,0 +1,14 @@
+<div class="platform">
+
+    <div class="platform-name">
+        <h3>
+            {{ platformName }}
+        </h3>
+    </div>
+
+    <div class="trains">
+        <app-train *ngFor="let train of trains; let i = index;" [train]="train" [order]="i + 1">
+        </app-train>
+    </div>
+
+</div>

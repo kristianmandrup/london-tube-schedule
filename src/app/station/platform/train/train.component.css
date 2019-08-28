@@ -1,0 +1,19 @@
+.train {
+  display: grid;
+  grid-template-areas: "order towards due";
+  grid-template-columns: 15% 1fr 15%;
+  grid-column-gap: 5px;
+  margin: 8px;
+  padding-top: 5px;
+  min-height: 50px;
+  background-color: rgba(241, 241, 241, 0.2);
+}
+.order {
+  padding: 10px;
+}
+.towards {
+  padding: 10px;
+}
+.due {
+  padding: 10px;
+}

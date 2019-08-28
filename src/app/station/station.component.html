@@ -1,0 +1,21 @@
+<div class="station">
+
+    <div class=station-name>
+        <h2>
+            {{ stationName }}
+        </h2>
+        <p style="color: rgb(167, 207, 207)">Cirle</p>
+        <p style="color: rgb(237, 240, 196)">Hammersmith-city</p>
+        <p style="color: rgb(227, 211, 248)">Metropolitan</p>
+    </div>
+
+    <app-platform class="eastbound" [trains]="eastbound" [platformName]="'Eastbound'">
+
+    </app-platform>
+
+    <app-platform class="westbound" [trains]="westbound" [platformName]="'Westbound'">
+
+    </app-platform>
+
+
+</div>
