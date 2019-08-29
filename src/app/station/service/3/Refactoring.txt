@@ -1,0 +1,7 @@
+# Refactoring 3
+
+Extract method - `arrivalTimeFor`
+
+- Simplifies compare
+- Makes it more clear
+- Allows for simple subtraction logic as compare result

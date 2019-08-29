@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, timer, concat, from } from "rxjs";
 import { map, concatMap } from "rxjs/operators";
-import { Arrival, ApiResponse } from "../model/station.model";
+import { Arrival, ApiResponse } from "../../model/station.model";
 
 @Injectable({
   providedIn: "root"
@@ -33,7 +33,7 @@ export class StationService {
    */
   private subscribeToArrivals() {
     timer(0, 30000).subscribe(() => {
-      this.getArrival().subscribe(data => this.arrivals.next(data));
+      this.getArrivals().subscribe(data => this.arrivals.next(data));
     });
   }
 
@@ -42,7 +42,7 @@ export class StationService {
    * Plus modification of the objects into simplied objects
    * And sorted by time
    */
-  private getArrival(): Observable<Arrival[]> {
+  private getArrivals(): Observable<Arrival[]> {
     return this.http.get<Arrival[]>(this.url).pipe(
       map((data: ApiResponse[]) => {
         return data
@@ -56,12 +56,18 @@ export class StationService {
             };
             return d;
           })
-          .sort((a, b) => {
-            const adate = new Date(a.expectedArrival);
-            const bdate = new Date(b.expectedArrival);
-            return adate.getTime() > bdate.getTime() ? 1 : -1;
-          });
+          .sort(this.compareByTime);
       })
     );
+  }
+
+  private arrivalDateFor(a: Arrival) {
+    return new Date(a.expectedArrival);
+  }
+
+  private compareByTime(a: Arrival, b: Arrival) {
+    const adate = this.arrivalDateFor(a);
+    const bdate = this.arrivalDateFor(b);
+    return adate.getTime() > bdate.getTime() ? 1 : -1;
   }
 }

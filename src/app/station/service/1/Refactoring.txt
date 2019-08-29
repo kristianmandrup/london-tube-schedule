@@ -1,0 +1,6 @@
+# Refactoring 1
+
+Extract method - `compareByTime`
+
+- Simplifies sort
+- Makes it easy to test and develop on the comparison functionality individually

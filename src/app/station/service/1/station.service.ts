@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, timer, concat, from } from "rxjs";
-import { map, concatMap } from "rxjs/operators";
-import { Arrival, ApiResponse } from "../model/station.model";
+import { Observable, BehaviorSubject, timer } from "rxjs";
+import { map } from "rxjs/operators";
+import { Arrival, ApiResponse } from "../../model/station.model";
 
 @Injectable({
   providedIn: "root"

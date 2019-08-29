@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, timer, concat, from } from "rxjs";
-import { map, concatMap } from "rxjs/operators";
-import { Arrival, ApiResponse } from "../model/station.model";
+import { Observable, BehaviorSubject, timer } from "rxjs";
+import { map } from "rxjs/operators";
+import { Arrival, ApiResponse } from "../../model/station.model";
 
 interface DisplayData {
   stationName: string;
@@ -10,11 +10,6 @@ interface DisplayData {
   towards: string;
   expectedArrival: string;
   lineId: string;
-}
-
-interface DataClient {
-  observe<T>(location: string): Observable<T>;
-  get<T>(location: string): T;
 }
 
 @Injectable({
@@ -43,7 +38,7 @@ export class StationService {
    */
   arrivals$: Observable<Arrival[]> = this.arrivals.asObservable();
 
-  constructor(private dataClient: DataClient) {
+  constructor(private http: HttpClient) {
     this.subscribeToArrivals();
   }
 
@@ -54,16 +49,12 @@ export class StationService {
    */
   private subscribeToArrivals() {
     timer(0, 30000).subscribe(() => {
-      this.observeArrivals().subscribe(data => this.arrivals.next(data));
+      this.getArrivals().subscribe(data => this.arrivals.next(data));
     });
   }
 
-  private observeData(): Observable<Arrival[]> {
-    return this.dataClient.observe<Arrival[]>(this.url);
-  }
-
-  private getData(): Arrival[] {
-    return this.dataClient.get<Arrival[]>(this.url);
+  private fetchData(): Observable<Arrival[]> {
+    return this.http.get<Arrival[]>(this.url);
   }
 
   /**
@@ -71,18 +62,12 @@ export class StationService {
    * Plus modification of the objects into simplied objects
    * And sorted by time
    */
-  private observeArrivals(): Observable<Arrival[]> {
-    return this.observeData().pipe(
+  private getArrivals(): Observable<Arrival[]> {
+    return this.fetchData().pipe(
       map((data: ApiResponse[]) =>
         data.map(this.displayData).sort(this.compareByTime)
       )
     );
-  }
-
-  private getArrivals(): Arrival[] {
-    return this.getData()
-      .map(this.displayData)
-      .sort(this.compareByTime);
   }
 
   private displayData(dApi: ApiResponse): DisplayData {

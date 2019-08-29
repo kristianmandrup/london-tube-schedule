@@ -66,8 +66,8 @@ export class TrainComponent implements OnInit, OnChanges {
     if (gap > 0) {
       this.setPositiveGap(gap);
     } else {
+      this.setNegativeGap(gap);
     }
-    this.setNegativeGap(gap);
   }
 
   setPositiveGap(gap: number) {

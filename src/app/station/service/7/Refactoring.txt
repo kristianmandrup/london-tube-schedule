@@ -1,0 +1,7 @@
+# Refactoring 7
+
+Extract `fetchData` to avoid hardcoded dependency on `http.get`
+
+- Makes it easy to change how to fetch data
+- Makes it more clear
+- Makes it more testable

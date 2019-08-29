@@ -1,0 +1,5 @@
+# Refactoring 9
+
+Make `observe` and `get` methods so we are not entirely reliant on observable data sources
+
+- More flexible with regards to data sources

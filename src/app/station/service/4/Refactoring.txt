@@ -1,0 +1,7 @@
+# Refactoring 4
+
+Extract method - `displayData`
+
+- Simplifies `map`
+- Makes it more clear
+- Allows testing and developing on `displayData` individually

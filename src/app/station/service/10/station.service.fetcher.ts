@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Arrival } from "../model/station.model";
-import { StationService } from "./station11.service";
+import { Arrival } from "../../model/station.model";
+import { StationService } from "./station.service";
 
 interface DataClient {
   get<T>(location: string): T;

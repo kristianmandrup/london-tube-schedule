@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, timer, concat, from } from "rxjs";
-import { map, concatMap } from "rxjs/operators";
-import { Arrival, ApiResponse } from "../model/station.model";
+import { Observable, BehaviorSubject, timer } from "rxjs";
+import { map } from "rxjs/operators";
+import { Arrival, ApiResponse } from "../../model/station.model";
 
 @Injectable({
   providedIn: "root"
@@ -43,23 +43,22 @@ export class StationService {
    * And sorted by time
    */
   private getArrival(): Observable<Arrival[]> {
-    return this.http
-      .get<Arrival[]>(this.url)
-      .pipe(
-        map((data: ApiResponse[]) =>
-          data.map(this.displayData).sort(this.compareByTime)
-        )
-      );
-  }
-
-  private displayData(dApi: ApiResponse) {
-    return {
-      stationName: dApi.stationName,
-      platformName: dApi.platformName,
-      towards: dApi.towards,
-      expectedArrival: dApi.expectedArrival,
-      lineId: dApi.lineId
-    };
+    return this.http.get<Arrival[]>(this.url).pipe(
+      map((data: ApiResponse[]) => {
+        return data
+          .map((dApi: ApiResponse) => {
+            const d: Arrival = {
+              stationName: dApi.stationName,
+              platformName: dApi.platformName,
+              towards: dApi.towards,
+              expectedArrival: dApi.expectedArrival,
+              lineId: dApi.lineId
+            };
+            return d;
+          })
+          .sort(this.compareByTime);
+      })
+    );
   }
 
   private arrivalDateFor(a: Arrival) {

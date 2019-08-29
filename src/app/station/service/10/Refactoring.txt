@@ -1,0 +1,9 @@
+# Refactoring 10
+
+Define concrete implementations of abstract StationService:
+- Fetcher
+- Observer
+
+- Encapsulate the generic in the abstract base class
+- Define the specific in the implementation classes
+

@@ -1,0 +1,6 @@
+# Refactoring 6
+
+Extract `displayFields` as instance variable in `displayData`
+
+- Makes it easy to change list of fields from class 
+- Makes it more clear

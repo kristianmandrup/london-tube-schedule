@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, timer, concat, from } from "rxjs";
 import { map, concatMap } from "rxjs/operators";
-import { Arrival, ApiResponse } from "../model/station.model";
+import { Arrival, ApiResponse } from "../../model/station.model";
 
 interface DisplayData {
   stationName: string;
@@ -41,7 +41,7 @@ export class StationService {
    */
   private subscribeToArrivals() {
     timer(0, 30000).subscribe(() => {
-      this.getArrival().subscribe(data => this.arrivals.next(data));
+      this.getArrivals().subscribe(data => this.arrivals.next(data));
     });
   }
 
@@ -50,7 +50,7 @@ export class StationService {
    * Plus modification of the objects into simplied objects
    * And sorted by time
    */
-  private getArrival(): Observable<Arrival[]> {
+  private getArrivals(): Observable<Arrival[]> {
     return this.http
       .get<Arrival[]>(this.url)
       .pipe(

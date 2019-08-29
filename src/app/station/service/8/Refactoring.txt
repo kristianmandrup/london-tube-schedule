@@ -1,0 +1,7 @@
+# Refactoring 8
+
+Use and extract `DataClient` interface to `get` data from.
+
+- Makes it easy to change how to fetch data
+- Makes it more clear
+- Makes it more testable (inject/use an implementation of abstract interface)

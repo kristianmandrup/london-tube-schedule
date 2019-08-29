@@ -1,18 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, timer, concat, from } from 'rxjs';
-import { map, concatMap } from 'rxjs/operators';
-import { Arrival, ApiResponse } from '../model/station.model';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject, timer, concat, from } from "rxjs";
+import { map, concatMap } from "rxjs/operators";
+import { Arrival, ApiResponse } from "../model/station.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StationService {
-
   /**
    * The URL to call for Great Portland Station
    */
-  url = 'https://api.tfl.gov.uk/StopPoint/940GZZLUGPS/arrivals';
+  url = "https://api.tfl.gov.uk/StopPoint/940GZZLUGPS/arrivals";
 
   /**
    * The Subject that contains all the values coming from the api
@@ -30,7 +29,7 @@ export class StationService {
      * Should be websocket!
      */
     timer(0, 30000).subscribe(() => {
-      this.getArrival().subscribe(data => this.arrivals.next(data));
+      this.getArrivals().subscribe(data => this.arrivals.next(data));
     });
   }
 
@@ -39,22 +38,25 @@ export class StationService {
    * Plus modification of the objects into simplied objects
    * And sorted by time
    */
-  private getArrival(): Observable<Arrival[]> {
+  private getArrivals(): Observable<Arrival[]> {
     return this.http.get<Arrival[]>(this.url).pipe(
       map((data: ApiResponse[]) => {
-
-        return data.map((dApi: ApiResponse) => {
-          const d: Arrival = {
-            stationName: dApi.stationName, platformName: dApi.platformName,
-            towards: dApi.towards, expectedArrival: dApi.expectedArrival, lineId: dApi.lineId
-          };
-          return d;
-        }).sort((a, b) => {
-          const adate = new Date(a.expectedArrival);
-          const bdate = new Date(b.expectedArrival);
-          return adate.getTime() > bdate.getTime() ? 1 : -1;
-        });
-
+        return data
+          .map((dApi: ApiResponse) => {
+            const d: Arrival = {
+              stationName: dApi.stationName,
+              platformName: dApi.platformName,
+              towards: dApi.towards,
+              expectedArrival: dApi.expectedArrival,
+              lineId: dApi.lineId
+            };
+            return d;
+          })
+          .sort((a, b) => {
+            const adate = new Date(a.expectedArrival);
+            const bdate = new Date(b.expectedArrival);
+            return adate.getTime() > bdate.getTime() ? 1 : -1;
+          });
       })
     );
   }

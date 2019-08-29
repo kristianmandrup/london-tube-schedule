@@ -41,7 +41,7 @@ export class StationServiceObserver extends StationService {
    */
   private subscribeToArrivals() {
     timer(0, 30000).subscribe(() => {
-      this.observeArrival().subscribe(data => this.arrivals.next(data));
+      this.observeArrivals().subscribe(data => this.arrivals.next(data));
     });
   }
 
@@ -54,7 +54,7 @@ export class StationServiceObserver extends StationService {
    * Plus modification of the objects into simplied objects
    * And sorted by time
    */
-  private observeArrival(): Observable<Arrival[]> {
+  private observeArrivals(): Observable<Arrival[]> {
     return this.observeData().pipe(
       map((data: ApiResponse[]) =>
         data.map(this.displayData).sort(this.compareByTime)

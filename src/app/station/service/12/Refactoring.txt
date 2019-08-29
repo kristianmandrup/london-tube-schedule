@@ -1,0 +1,3 @@
+# Refactoring 11
+
+Extract higher level `transform` method to encapsulate the full pipeline of transformations

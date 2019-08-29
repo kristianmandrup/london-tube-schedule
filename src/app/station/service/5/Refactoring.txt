@@ -1,0 +1,6 @@
+# Refactoring 5
+
+Make `displayData` more flexible and generic
+
+- Makes it easy to change list of fields used 
+- Makes it more clear

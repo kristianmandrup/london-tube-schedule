@@ -1,0 +1,3 @@
+# Refactoring 11
+
+Make compare (sort) and mapping (map) functionality configurable by the consumer

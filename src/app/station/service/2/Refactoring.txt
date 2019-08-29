@@ -1,0 +1,7 @@
+# Refactoring 2
+
+Extract method - `arrivalDateFor`
+
+- Simplifies compare
+- Reduce duplication
+- Make it more clear
